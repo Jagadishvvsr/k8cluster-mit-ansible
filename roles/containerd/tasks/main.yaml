@@ -1,0 +1,37 @@
+---
+
+- name: installing containerd
+  package:
+    name: containerd
+    state: present
+    update_cache: yes
+
+
+- name: containerd default config
+  command: containerd config default
+  register: containerd_default
+  changed_when: false
+    
+
+- name: creating /etc/containerd
+  ansible.builtin.copy:
+    dest: /etc/containerd/config.toml
+    content: "{{ containerd_default.stdout }}"
+    mode: '0644'
+
+
+- name: align containerd with kubelet expectations
+  ansible.builtin.replace:
+      path: /etc/containerd/config.toml
+      regexp: 'SystemdCgroup = false'
+      replace: 'SystemdCgroup = true'
+
+- name: configure pause image for the pause container
+  ansible.builtin.replace: 
+     path: /etc/containerd/config.toml
+     regexp: 'sandbox_image = ".*"'
+     replace: 'sandbox_image = "registry.k8s.io/pause:3.9"'   
+  notify: containerd reload
+
+
+
