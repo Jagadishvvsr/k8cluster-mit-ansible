@@ -1,0 +1,37 @@
+---
+
+- name: Common Kubernetes components on control and worker nodes
+  become: yes
+  hosts: all
+
+  roles: 
+    - swap_off
+    - set_kernel_network
+    - install_containerd
+    - configure_containerd
+    - install_kubeadm
+    - install_kubelet
+    - install_kubectl
+
+- name: Initialize Kubernetes Control Plane
+  hosts: control_plane
+  become: yes
+
+  roles:
+    - control_plane
+
+
+- name: Install Calico CNI via Operator 
+  hosts: control_plane
+  become: yes
+
+  roles: 
+    - cni
+ 
+
+- name: Join Worker Nodes
+  hosts: worker_nodes
+  become: yes
+
+  roles:
+    - worker_plane
