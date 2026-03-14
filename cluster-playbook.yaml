@@ -5,13 +5,9 @@
   hosts: all
 
   roles: 
-    - swap_off
-    - set_kernel_network
-    - install_containerd
-    - configure_containerd
-    - install_kubeadm
-    - install_kubelet
-    - install_kubectl
+    - kernel_configuration
+    - containerd
+    - k8_components
 
 - name: Initialize Kubernetes Control Plane
   hosts: control_plane
@@ -19,13 +15,6 @@
 
   roles:
     - control_plane
-
-
-- name: Install Calico CNI via Operator 
-  hosts: control_plane
-  become: yes
-
-  roles: 
     - cni
  
 
