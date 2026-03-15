@@ -1,0 +1,52 @@
+--- 
+
+- name: install version lock
+  ansible.builtin.dnf:
+     name: 
+      - dnf-command(versionlock)
+      - ca-certificates
+      - gnupg2
+     state: latest
+
+
+
+- name: import kubernetes gpg key
+  ansible.builtin.rpm_key:
+    state: present
+    key: https://pkgs.k8s.io/core:/stable:/v{{ k8s_version }}/rpm/repodata/repomd.xml.key
+
+
+- name: Add kubernetes repository
+  ansible.builtin.yum_repository:
+        name: kubernetes
+        description: kubernetes repository
+        baseurl: https://pkgs.k8s.io/core:/stable:/v{{ k8s_version }}/rpm/
+        enabled: yes
+        gpgcheck: yes
+        gpgkey: https://pkgs.k8s.io/core:/stable:/v{{ k8s_version }}/rpm/repodata/repomd.xml.key
+        repo_gpgcheck: yes
+        sslverify: yes
+        state: present
+
+
+- name: installing k8 components
+  ansible.builtin.package:
+    name: 
+       - kubelet
+       - kubeadm
+       - kubectl  
+    state: present
+
+- name: lock kubernetes packages
+  ansible.builtin.command: >
+    dnf versionlock add kubelet kubeadm kubectl
+  changed_when: false
+
+- name: enabling kubelet to be restarting after any disrruptions
+  ansible.builtin.service:
+      name: kubelet
+      enabled: yes
+      state: started
+
+
+

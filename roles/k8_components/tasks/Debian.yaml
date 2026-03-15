@@ -1,0 +1,54 @@
+---
+
+- name: create apt keyring directory
+  ansible.builtin.file:
+     path: /etc/apt/keyrings
+     state: directory
+     mode: '0755'
+
+- name: adding keyrings of kubernetes for authenticated download
+  ansible.builtin.get_url:
+    url: https://pkgs.k8s.io/core:/stable:/v{{ k8s_version }}/deb/Release.key
+    dest: /tmp/kubernetes.key
+    mode: '0644'
+
+- name: convert key to gpg
+  ansible.builtin.command:
+    cmd: gpg --dearmor -o /etc/apt/keyrings/kubernetes-apt-keyring.gpg /tmp/kubernetes.key
+    creates: /etc/apt/keyrings/kubernetes-apt-keyring.gpg
+
+
+- name: Adding Kubernetes component keyrings for authenticated installation
+  ansible.builtin.apt_repository:
+    repo: "deb [signed-by=/etc/apt/keyrings/kubernetes-apt-keyring.gpg] https://pkgs.k8s.io/core:/stable:/{{ k8s_version }}/deb/ /"
+    state: present
+    filename: "kubernetes.list"
+    update_cache: yes
+
+- name: installing k8 components
+  ansible.builtin.package:
+    name: 
+       - kubelet
+       - kubeadm
+       - kubectl  
+    state: present
+
+- name: hold kubernetes packages
+  ansible.builtin.dpkg_selections:
+    name: "{{ item }}"
+    selection: hold
+  loop:
+    - kubelet
+    - kubeadm
+    - kubectl
+
+- name: enabling kubelet to be restarting after any disrruptions
+  ansible.builtin.service:
+      name: kubelet
+      enabled: yes
+      state: started
+
+- name: remove temp key
+  ansible.builtin.file:
+    path: /tmp/kubernetes.key
+    state: absent

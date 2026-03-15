@@ -1,0 +1,4 @@
+---
+
+- name: installtion of K8 components on Debian
+  include_tasks: "{{ ansible_os_family | lower }}.yaml"
