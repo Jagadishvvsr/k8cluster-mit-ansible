@@ -30,7 +30,7 @@
   ansible.builtin.replace: 
      path: /etc/containerd/config.toml
      regexp: 'sandbox_image = ".*"'
-     replace: 'sandbox_image = "registry.k8s.io/pause:3.9"'   
+     replace: 'sandbox_image = "registry.k8s.io/pause:{{ pause_image_version}}"'   
   notify: containerd reload
 
 
