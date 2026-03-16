@@ -1,0 +1,2 @@
+Control_Plane_Private_IP: "{{ ansible_default_ipv4.address }}"
+USER_HOME: "/home/{{ ansible_user }}"

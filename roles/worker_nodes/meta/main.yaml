@@ -1,0 +1,4 @@
+dependencies:
+
+  - role: control_plane
+    become: yes

@@ -10,7 +10,7 @@
     - k8_components
 
 - name: Initialize Kubernetes Control Plane
-  hosts: control_plane
+  hosts: ControlPlane
   become: yes
 
   roles:
@@ -19,8 +19,8 @@
  
 
 - name: Join Worker Nodes
-  hosts: worker_nodes
+  hosts: WorkerNodes
   become: yes
 
   roles:
-    - worker_plane
+    - worker_nodes

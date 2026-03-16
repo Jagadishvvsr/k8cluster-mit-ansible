@@ -1,0 +1,3 @@
+dependencies:
+  - role: k8_components
+    become: yes
