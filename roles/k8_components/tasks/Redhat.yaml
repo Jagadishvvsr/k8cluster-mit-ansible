@@ -32,9 +32,9 @@
 - name: installing k8 components
   ansible.builtin.package:
     name: 
-       - kubelet
-       - kubeadm
-       - kubectl  
+       - kubelet={{ k8s_version }}
+       - kubeadm={{ k8s_version }}
+       - kubectl={{ k8s_version }}
     state: present
 
 - name: lock kubernetes packages
