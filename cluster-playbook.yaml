@@ -24,3 +24,10 @@
 
   roles:
     - worker_nodes
+
+
+- name: cluster status
+  hosts: ControlPlane
+  
+  roles: 
+    - podcheck
