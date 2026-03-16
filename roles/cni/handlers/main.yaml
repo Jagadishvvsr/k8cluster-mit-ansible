@@ -1,0 +1,6 @@
+---
+- name: reboot after calico
+  ansible.builtin.reboot:
+      reboot_timeout: 600   # Wait up to 10 minutes
+      msg: "Reboot initiated by Ansible"
+      test_command: whoami  # Command to verify system is back

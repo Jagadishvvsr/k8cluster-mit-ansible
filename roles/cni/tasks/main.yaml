@@ -38,6 +38,9 @@
     src: "{{ ansible_env.HOME }}/calico_manifest/customcr.yaml"
   environment:
     KUBECONFIG: /etc/kubernetes/admin.conf
+  notify: reboot after calico
+
+- meta: flush_handlers
 
 
 - name: wait for node readiness
@@ -48,3 +51,7 @@
   until: "'True' in node_ready.stdout"
   environment:
     KUBECONFIG: /etc/kubernetes/admin.conf
+
+
+
+  
