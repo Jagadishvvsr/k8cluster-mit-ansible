@@ -2,3 +2,5 @@ dependencies:
 
   - role: control_plane
     become: yes
+    vars:
+      generate_join_command: yes
