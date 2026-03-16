@@ -1,0 +1,6 @@
+---
+
+- name: join worker node
+  command: "{{ hostvars['ControlPlane'].join_command.stdout }}"
+  args:
+    creates: /etc/kubernetes/kubelet.conf

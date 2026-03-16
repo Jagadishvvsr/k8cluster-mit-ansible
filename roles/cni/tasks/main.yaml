@@ -1,0 +1,50 @@
+---
+
+- name: install the operator custom resource definitions
+  kubernetes.core.k8s:
+    state: present
+    src: "https://raw.githubusercontent.com/projectcalico/calico/v{{ CALICO_VERSION }}/manifests/operator-crds.yaml"
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+  
+
+- name: install tigera operator
+  kubernetes.core.k8s:
+    state: present
+    src: "https://raw.githubusercontent.com/projectcalico/calico/v{{ CALICO_VERSION }}/manifests/tigera-operator.yaml"
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+
+
+- name: crearting directory for CR 
+  ansible.builtin.file:
+     path: "{{ ansible_env.HOME }}/calico_manifest"
+     state: directory
+     mode: '0755'
+
+
+- name: copying manifest for tigera operator
+  ansible.builtin.copy:
+     src: customcr.yaml
+     dest: "{{ ansible_env.HOME }}/calico_manifest/customcr.yaml"
+     mode: '0644'
+
+
+
+
+- name: Applying a installation Custom resource
+  kubernetes.core.k8s:
+    state: present
+    src: "{{ ansible_env.HOME }}/calico_manifest/customcr.yaml"
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf
+
+
+- name: wait for node readiness
+  ansible.builtin.command: kubectl get nodes -o jsonpath='{.items[*].status.conditions[?(@.type=="Ready")].status}'
+  register: node_ready
+  retries: 20
+  delay: 15
+  until: "'True' in node_ready.stdout"
+  environment:
+    KUBECONFIG: /etc/kubernetes/admin.conf

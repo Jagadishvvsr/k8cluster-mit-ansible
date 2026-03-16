@@ -1,0 +1,13 @@
+apiVersion: operator.tigera.io/v1        # Calico Operator API group/version
+kind: Installation                        # Cluster-wide Calico install spec
+metadata:
+  name: default                           # Must be named 'default' (singleton)
+spec:
+  calicoNetwork:                          # Calico networking settings
+    bgp: Disabled                         # Added later. Refer "Calico Troubleshooting" section of this lecture
+    ipPools:
+    - cidr: 192.168.0.0/16                # Pod CIDR (matches kubeadm --pod-network-cidr)
+      natOutgoing: Enabled                # SNAT pod→external traffic at node egress
+      blockSize: 26                       # Per-node IP block size (/26 = 64 pod IPs)
+      encapsulation: VXLANCrossSubnet     # Use VXLAN; skip encapsulation within same L2 subnet
+      nodeSelector: all()                 # Apply this pool to all nodes

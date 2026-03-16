@@ -1,0 +1,28 @@
+---
+
+- name: Initializing the control plane
+  ansible.builtin.command: kubeadm init --control-plane-endpoint={{ Control_Plane_Private_IP }}:6443 --apiserver-advertise-address={{ Control_Plane_Private_IP}}  --pod-network-cidr=192.168.0.0/16
+  args:
+    creates: /etc/kubernetes/admin.conf
+
+
+- name: Creating .kube for the user
+  ansible.builtin.file:
+      path: "{{ USER_HOME }}/.kube"
+      state: directory  
+      owner: "{{ ansible_user }}"
+      group: "{{ ansible_group }}"
+      mode: '0755'
+
+- name: copying admin config file for the USER_HOME
+  ansible.builtin.copy:
+     src: /etc/kubernetes/admin.conf
+     dest: "{{ USER_HOME }}/.kube/config"
+     owner: "{{ Ansble_user }}"
+     group: "{{ Ansible_group }}"
+     mode: '0644'
+     remote_src: yes
+
+- name: Join commmand for worker nodes
+  ansible.builtin.command: kubeadm token create --print-join-command
+  register: join_token
