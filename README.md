@@ -153,7 +153,7 @@ Validates cluster health:
 
 # 🚀 How to Run
 
-     ** ansible-playbook -i inventory/hosts.ini playbook.yaml
+      ansible-playbook -i inventory/hosts.ini playbook.yaml
      
 # 📊 Variables
 
