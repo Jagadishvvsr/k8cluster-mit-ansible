@@ -26,7 +26,8 @@ The architecture follows a standard Kubernetes design:
   * Pods (application workloads)
 
 # ⚙️ Roles & Responsibilities
-**🔹 bootstrap
+
+#🔹 bootstrap
 
 Prepares all nodes for Kubernetes compatibility:
 
