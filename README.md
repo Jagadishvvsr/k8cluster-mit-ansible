@@ -47,7 +47,7 @@ Installs and configures the container runtime:
 
 * Generates default config:
 
-         __ containerd config default __
+          containerd config default 
 * Updates:
   * SystemdCgroup = true (required for Kubernetes)
 *Configures pause image (via variables)
@@ -116,8 +116,8 @@ Validates cluster health:
 
 # 📂 Project Structure
 .
-├── roles/
-│   ├── bootstrap/
+├── roles/  \
+│   ├── bootstrap/ \
 │   ├── containerd/
 │   ├── k8_components/
 │   ├── control_plane/
