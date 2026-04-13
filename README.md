@@ -177,3 +177,8 @@ After successful execution:
 * Dev/Test cluster provisioning
 * Infrastructure automation practice
 * CI/CD infrastructure setup
+
+
+
+# Kubernetes Architecture
+<img width="4307" height="3397" alt="k8-arch " src="https://github.com/user-attachments/assets/1e7c0265-adc8-4f0e-a395-3ce6d14c635b" />
