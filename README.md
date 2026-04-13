@@ -14,7 +14,7 @@ Control Plane → Manages cluster state
 Worker Nodes → Run application workloads (Pods)
 
 # 🧱 Cluster Architecture
-** Control Plane Components **
+* Control Plane Components
   API Server
   Controller Manager
   Scheduler
