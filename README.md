@@ -2,16 +2,16 @@
 
 The playbook provisions a Kubernetes cluster with:
 
-Fully configured Control Plane
-Multiple Worker Nodes
-Container runtime (containerd)
-CNI networking (Calico)
-Automated node join & validation
+* Fully configured Control Plane
+* Multiple Worker Nodes
+* Container runtime (containerd)
+* CNI networking (Calico)
+* Automated node join & validation
 
 The architecture follows a standard Kubernetes design:
 
-Control Plane → Manages cluster state
-Worker Nodes → Run application workloads (Pods)
+** Control Plane ** → Manages cluster state
+* Worker Nodes → Run application workloads (Pods)
 
 # 🧱 Cluster Architecture
 * Control Plane Components
