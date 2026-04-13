@@ -38,7 +38,7 @@ Prepares all nodes for Kubernetes compatibility:
     * IPv4/IPv6 forwarding
 * Ensures iptables can see container traffic
 
-** 📍 Executed on: All nodes
+ 📍 Executed on: All nodes
 
 # 🔹 containerd
 
@@ -53,7 +53,7 @@ Installs and configures the container runtime:
   * SystemdCgroup = true (required for Kubernetes)
 *Configures pause image (via variables)
 
-** 📍 Executed on: All nodes
+ 📍 Executed on: All nodes
 
 # 🔹 k8_components
 
@@ -67,7 +67,7 @@ Installs Kubernetes binaries:
 * Holds package versions (prevents unintended upgrades)
 * Enables kubelet service
 
-** 📍 Executed on: All nodes
+ 📍 Executed on: All nodes
 
 # 📦 Version management:
 
@@ -78,14 +78,14 @@ group_vars/all/k8components.yaml
 Initializes the Kubernetes control plane:
 
 * Runs:
-      ** kubeadm init
+       kubeadm init
 * Uses variables:
      * Control_Plane_Private_IP
      * PodCidr
 * Configures kubeconfig for the user
 * Generates join token for worker nodes
 
-** 📍 Executed on: Control plane nodes
+ 📍 Executed on: Control plane nodes
 
 # 🔹 cni
 
@@ -95,25 +95,25 @@ Configures cluster networking using Calico:
 * Applies custom Calico CR
 * Waits for cluster readiness before applying networking
 
-** 📍 Executed on: Control plane nodes
+ 📍 Executed on: Control plane nodes
 
 # 🔹 worker_nodes
 
 Joins worker nodes to the cluster:
 * Uses generated join_command
 * Ensures idempotency:
-  ** creates: /etc/kubernetes/kubelet.conf
+   creates: /etc/kubernetes/kubelet.conf
 
-**📍 Executed on: Worker nodes
+📍 Executed on: Worker nodes
 
 # 🔹 pod_check
 
 Validates cluster health:
 * Checks pods in:
-    ** kube-system namespace
+     kube-system namespace
 * Ensures cluster is fully operational
 
-** 📍 Executed on: Control plane
+ 📍 Executed on: Control plane
 
 # 📂 Project Structure
 .
