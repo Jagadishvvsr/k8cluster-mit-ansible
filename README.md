@@ -51,7 +51,7 @@ Installs and configures the container runtime:
           containerd config default 
 * Updates:
   * SystemdCgroup = true (required for Kubernetes)
-*Configures pause image (via variables)
+  *Configures pause image (via variables)
 
  📍 Executed on: All nodes
 
