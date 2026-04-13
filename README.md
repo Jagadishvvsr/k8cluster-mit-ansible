@@ -118,21 +118,21 @@ Validates cluster health:
 .
 ├── roles/  \
 │   ├── bootstrap/ \
-│   ├── containerd/
-│   ├── k8_components/
-│   ├── control_plane/
-│   ├── cni/
-│   ├── worker_nodes/
-│   └── pod_check/
-├── group_vars/
-│   └── all/
-│       ├── k8components.yaml
-│       ├── controlplane.yaml
-│       ├── calicoversion.yaml
-│       └── pauseImage.yaml
-├── inventory/
-│   └── hosts.ini
-└── playbook.yaml
+│   ├── containerd/ \
+│   ├── k8_components/ \
+│   ├── control_plane/ \
+│   ├── cni/ \
+│   ├── worker_nodes/ \
+│   └── pod_check/ \
+├── group_vars/ \
+│   └── all/ \
+│       ├── k8components.yaml \
+│       ├── controlplane.yaml \
+│       ├── calicoversion.yaml \
+│       └── pauseImage.yaml \
+├── inventory/ \
+│   └── hosts.ini \
+└── playbook.yaml  \
 
 # 🧩 Key Features
 
