@@ -27,7 +27,7 @@ The architecture follows a standard Kubernetes design:
 
 # ⚙️ Roles & Responsibilities
 
-#🔹 bootstrap
+# 🔹 bootstrap
 
 Prepares all nodes for Kubernetes compatibility:
 
