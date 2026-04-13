@@ -1,4 +1,12 @@
 # Kubernetes Cluster Provisioning using Ansible
+
+## 🔧 Engineering Decisions
+
+- Designed roles to ensure idempotent execution across all nodes
+- Centralized version control using group_vars for easier upgrades
+- Used kubeadm for production-aligned cluster provisioning
+- Implemented conditional execution to prevent duplicate node joins
+
 # 📌 Overview
 
 The playbook provisions a Kubernetes cluster with:
@@ -178,14 +186,6 @@ After successful execution:
 * Dev/Test cluster provisioning
 * Infrastructure automation practice
 * CI/CD infrastructure setup
-
-## 🔧 Engineering Decisions
-
-- Designed roles to ensure idempotent execution across all nodes
-- Centralized version control using group_vars for easier upgrades
-- Used kubeadm for production-aligned cluster provisioning
-- Implemented conditional execution to prevent duplicate node joins
-
 
 
 # Kubernetes Architecture
